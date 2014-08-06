@@ -11,28 +11,60 @@
 
 #include <iostream>
 #include "Mat.h"
+#include "Kernel.h"
+
+enum LayerType {
+    
+    InputLayer,
+    ConvolLayer,
+    PoolingLayer,
+    SoftMaxLayer,
+    FullLayer
+};
 
 class Layer {
 public:
-    Mat *feature_map;
-    Mat *kernels;
+    Mat *feature_maps;
+    Kernel *kernels;
     int kernelNum;
     int feat_mapNum;
+    LayerType type = LayerType::ConvolLayer;
+    
     Layer(){
         kernelNum = 0;
         feat_mapNum = 0;
-        feature_map = new Mat();
-        kernels = new Mat();
-        
+        feature_maps = new Mat[1];
+        kernels = new Kernel[1];
     }
-    Layer(const int feat_mNum,const Mat *feature_map, const int kernelNum, const Mat *kernels);
-    //Layer(const int feat_mNum,const Size *feature_map_sizes, const int kernelNum, const Size *kernels_sizes);
     
-    Layer(const int feat_mNum,const Size &feature_map_size, const int kernelNum, const Size &kernels_size);
+    Layer(const int kernelNum, const Kernel *kernels);
+    //Layer(const int feat_mNum,const Size *feature_map_sizes, const int kernelNum, const Size *kernels_sizes);
+    Layer(const Layer &rhs);
+    Layer& operator = (const Layer &rhs);
+    
+    void calCulateFeatureMap(const Layer *lhs);
+    
+    void calCulateDeltaMap(const Layer *rhs, const Mat *rdeltaMap, Mat *resultDeltaMap);
+    
+    void updateKernels(const Layer *lhs, const Mat* rdeltaMap, const float alpha);
+    
+    
+    void setFeatureMap(const Mat *feature_maps,const int feature_mapNum);
+    
+    inline void setType(LayerType type){
+        this->type = type;
+    }
+    
+    Datatype calculateActivateValue(Datatype *weightedSum){
+        Datatype activateValue = Datatype(0);
+        return activateValue;
+    }
     
     ~Layer(){
-        delete feature_map;
-        delete kernels;
+        delete [] feature_maps;
+        delete [] kernels;
     }
+    
+    static void testLayer();
 };
 #endif /* defined(__CNN__Layer__) */

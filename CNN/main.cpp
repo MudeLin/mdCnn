@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Size.h"
 #include "Mat.h"
-
+#include "Layer.h"
 int main(int argc, const char * argv[])
 {
 
@@ -17,6 +17,7 @@ int main(int argc, const char * argv[])
     std::cout << "Hello, World!\n";
     Size::testSize();
     Mat::testMat();
+    Layer::testLayer();
     return 0;
 }
 
