@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4D43F2D1-44AC-4B7B-920C-97918C7C7D72</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CNN</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>CDC7DF3C-3FE6-408C-8D85-0BAE00D8B479</key>
+		<string>https://github.com/Geekking/mdCnn.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CNN.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>CDC7DF3C-3FE6-408C-8D85-0BAE00D8B479</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Geekking/mdCnn.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CDC7DF3C-3FE6-408C-8D85-0BAE00D8B479</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CDC7DF3C-3FE6-408C-8D85-0BAE00D8B479</string>
+			<key>IDESourceControlWCCName</key>
+			<string>mdCnn</string>
+		</dict>
+	</array>
+</dict>
+</plist>

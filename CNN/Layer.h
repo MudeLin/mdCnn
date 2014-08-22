@@ -26,7 +26,9 @@ class Layer {
 public:
     Mat *feature_maps;
     Kernel *kernels;
+    
     int kernelNum;
+    
     int feat_mapNum;
     LayerType type = LayerType::ConvolLayer;
     
@@ -48,23 +50,23 @@ public:
     
     void updateKernels(const Layer *lhs, const Mat* rdeltaMap, const float alpha);
     
-    
     void setFeatureMap(const Mat *feature_maps,const int feature_mapNum);
     
     inline void setType(LayerType type){
         this->type = type;
     }
     
-    Datatype calculateActivateValue(Datatype *weightedSum){
-        Datatype activateValue = Datatype(0);
-        return activateValue;
-    }
     
     ~Layer(){
         delete [] feature_maps;
         delete [] kernels;
     }
-    
-    static void testLayer();
 };
+
+static void testLayer(){
+    Layer l = Layer();
+    std::cout << l.kernelNum << std::endl;
+    
+}
+
 #endif /* defined(__CNN__Layer__) */

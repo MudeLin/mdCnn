@@ -11,22 +11,21 @@
 
 #include <iostream>
 #include "Layer.h"
+#include "NetWork.h"
 
-class NetWorkDelegate {
-public:
-    int layerCount;
-    Layer *layers;
+class NetWorkDelegate: public NetWork {
+private:
     float alpha = 0.01;
     float numda = 0.0001;
     int batchSize = 1;
     int rounds = 10;
     
-    NetWorkDelegate() {
-        this->layerCount = 0;
-        this->layers = new Layer[1];
+public:
+    NetWorkDelegate(){
+        
     }
-    
-    NetWorkDelegate(const int _layerCount, const Layer *layers);
+    NetWorkDelegate(const int layerCount, const Layer *layers):NetWork(layerCount,layers){
+    }
     
     void forward();
     void backward();

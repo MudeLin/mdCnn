@@ -16,7 +16,7 @@ Layer::Layer(const int kernelNum, const Kernel *_kernels){
     
     for (int i = 0; i < this->kernelNum; i ++) {
         *(this->kernels + i) = *(_kernels + i);
-        feat_mNum += (this->kernels + i)->kernelNum;
+        feat_mNum ++;
     }
     
     this->feat_mapNum = feat_mNum;
@@ -56,6 +56,38 @@ void Layer::calCulateFeatureMap(const Layer *lhs){
     assert(lhs != NULL);
     Mat *l_f_maps = lhs->feature_maps;
     //TODO: FINISH CNN
+    int feat_no = 0;
+    switch (this->type) {
+        case ConvolLayer:
+            for (int i = 0; i < this->kernelNum; i++) {
+                Kernel *cur_k = (this->kernels + i);
+                
+                Mat *resultFeature_map = new Mat();
+                
+                cur_k->calculateFeatureMap(l_f_maps,resultFeature_map);
+                *(this->feature_maps + feat_no ) = *(resultFeature_map);
+                delete  resultFeature_map;
+                feat_no ++;
+            }
+            break;
+        
+        case PoolingLayer:
+            //TODO:
+            break;
+            
+        case FullLayer:
+            //TODO:
+            break;
+            
+        case SoftMaxLayer:
+            break;
+            
+        default:
+            printf("Error, Needn't caculate the feature map for input layer");
+            break;
+    }
+
+    
 }
 
 
@@ -85,8 +117,8 @@ void Layer::calCulateDeltaMap(const Layer *rhs, const Mat *rdeltaMap, Mat *resul
 
 void Layer::setFeatureMap(const Mat *feature_maps,const int feature_mapNum){
     assert(feature_maps != NULL);
-    assert(feature_mapNum == this->feat_mapNum);
-    for (int i = 0; i < this->feat_mapNum; i++) {
+    assert(feature_mapNum == this -> feat_mapNum);
+    for (int i = 0; i < this -> feat_mapNum; i++) {
         *(this->feature_maps + i) = *(feature_maps + i);
     }
 }
@@ -95,7 +127,4 @@ void Layer::updateKernels(const Layer *lhs, const Mat *rdeltaMap,const float alp
     
 }
 
-void Layer::testLayer(){
-    
-}
 

@@ -10,6 +10,33 @@
 #include <stdlib.h>
 
 Mat::Mat(const Size &size){
+    this->initSize(size);
+}
+
+Mat::Mat(const Mat &mat){
+    if(this != &mat){
+        this->initSize(mat.size);
+        
+        assert(data != NULL);
+        memcpy(data, mat.data, totalCount * sizeof(Datatype));
+    }
+}
+
+Mat::Mat(const Size &size,const Datatype *data){
+    this->initSize(size);
+    this->setData(data, size);
+}
+void Mat::setData(const Datatype *data, const Size &size) {
+    assert(data != NULL);
+    assert(this->size == size);
+    if (this->data != NULL) {
+        delete [] this->data;
+        this->data = new Datatype[this->totalCount];
+    }
+    assert(data != NULL);
+    memcpy(this->data, data, totalCount * sizeof(Datatype));
+}
+void Mat::initSize(const Size &size){
     this->size = size;
     int totalCount = 0;
     for (int i = 0; i < this->size.dim;  i ++ ) {
@@ -22,54 +49,47 @@ Mat::Mat(const Size &size){
     memset(data, 0, totalCount * sizeof(Datatype));
 }
 
-Mat::Mat(const Mat &mat){
-    if(this != &mat){
-        this->size = mat.size;
-        int totalCount = 0;
-        for (int i = 0; i < this->size.dim;  i ++ ) {
-            int dimSize = *((this->size).sizes + i);
-            assert(dimSize > 0);
-            totalCount += dimSize;
-        }
-        this->totalCount = totalCount;
-        data = new Datatype[totalCount];
-        assert(data != NULL);
-        memcpy(data, mat.data, totalCount * sizeof(Datatype));
+void Mat::setSize(const Size &size){
+    this->size = size;
+    int totalCount = 0;
+    for (int i = 0; i < this->size.dim;  i ++ ) {
+        int dimSize = *((this->size).sizes + i);
+        assert(dimSize > 0);
+        totalCount += dimSize;
     }
+    this->totalCount = totalCount;
+    if (this->data != NULL) {
+        delete [] this->data;
+    }
+    data = new Datatype[totalCount];
+    
+    //memset(data, 0, totalCount * sizeof(Datatype));
+}
+
+Datatype Mat::getDataAt(const int x, const int y, const int z) const{
+    assert(this->size.dim == 3);
+    unsigned int index = x * (this->size.getSizeAtdim(1))*(this->size.getSizeAtdim(2)) + y*(this->size.getSizeAtdim(2)) + z ;
+    assert(index < totalCount);
+    
+    return *(this->data + index);
+}
+void Mat::setDataAt(const int x, const int y, const Datatype &newValue){
+    assert(this->size.dim == 2);
+    int index = x * (this->size.getSizeAtdim(1)) + y;
+    assert(index < totalCount);
+    
+    *(this->data + index) = newValue;
+    
 }
 Mat& Mat::operator=(const Mat &mat){
     if(this != &mat){
-        this->size = mat.size;
-        int totalCount = 0;
-        for (int i = 0; i < this->size.dim;  i ++ ) {
-            int dimSize = *((this->size).sizes + i);
-            assert(dimSize > 0);
-            totalCount += dimSize;
-        }
-        this->totalCount = totalCount;
-        delete [] data;
-        
-        data = new Datatype[totalCount];
-        
+        this->setSize(mat.size);
         assert(data != NULL);
         memcpy(data, mat.data, totalCount * sizeof(Datatype));
     }
     return *this;
 }
-void Mat::testMat(){
-    int dim = 3;
-    int sizes[] = {2,2,3};
-    Size ts = Size(dim,sizes);
-    Mat mat = Mat(ts);
-    std::cout << "Mat constructed: "<< mat.size.dim << std::endl;
-    Mat mat2 = Mat(mat);
-    std::cout << "Mat copy constructed: "<< mat2.size.dim << std::endl;
-    Mat mat4;
-    mat4 = mat2;
-    std::cout << "Mat copy constructed: "<< mat4.size.dim << std::endl;
-    Mat *mat5 = new Mat(mat2);
-    std::cout << "Mat copy constructed: "<< mat5->size.dim << std::endl;
-}
+
 
 void Mat::randomInitialized(){
     srand(1000);

@@ -14,13 +14,21 @@
 
 class Kernel : public Mat {
 public:
-    int kernelNum;
+    
     int* connectivity;
+    // connectivities number
     int conn_Num;
+    
     Kernel();
-    Kernel(const int kernelNum, const  int* connectivity,const int conn_Num);
+    Kernel( const  int* connectivity,const int conn_Num);
+    Kernel( const  int* connectivity,const int conn_Num,const Size &size);
     Kernel(const Kernel &rhs);
+    void setConnectivity(const int*connectivity,const int conn_Num);
     Kernel& operator =(const Kernel &rhs);
+    void calculateFeatureMap(const Mat *pre_feat_maps,Mat *resultFeature_map,const int steps = 1);
+    Datatype activationFunc(const Datatype &sum) const;
+    
+    static void testKernel();
     
     ~Kernel(){
         delete [] connectivity;
