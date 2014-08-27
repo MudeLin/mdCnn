@@ -12,11 +12,14 @@
 #include "Layer.h"
 #include "NetoWorkdelegate.h"
 
+void initializedNetwork();
+
 int main(int argc, const char * argv[])
 {
 
     // insert code here...
     std::cout << "Hello, World!\n";
+    initializedNetwork();
     testSize();
     testMat();
     testLayer();
@@ -43,7 +46,7 @@ void initializedNetwork(){
         (kernels + i)->setSize(Size(2,sizes));
     }
     layer = new Layer(6,kernels);
-    delete kernels;
+    delete [] kernels;
     
     delegate->appendLayer(layer);
     delete layer;

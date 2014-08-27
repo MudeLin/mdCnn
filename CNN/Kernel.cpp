@@ -86,9 +86,8 @@ Datatype Kernel::activationFunc(const Datatype &sum) const {
     return Datatype(1.0) / (Datatype(1.0) + pow(m_e, -sum));
 }
 void Kernel::setConnectivity(const int *connectivity, const int conn_Num){
-    delete [] connectivity;
+    delete [] this->connectivity;
     this->conn_Num = conn_Num;
-
     this->connectivity = new int[this->conn_Num];
     memcpy(this->connectivity, connectivity, sizeof(int)*(this->conn_Num));
             

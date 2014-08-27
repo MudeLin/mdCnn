@@ -24,26 +24,29 @@ public:
     int totalCount;
     Mat(){
         size = Size();
-        data = new Datatype[1];
         totalCount = 0;
+        data = new Datatype[totalCount];
     }
+    
     Mat(const Size &size);
     Mat(const Size &size,const Datatype *data);
     Mat(const Mat &mat);
     Mat& operator = (const Mat &mat);
     ~Mat(){
-        delete [] data;
+        if(totalCount > 0){
+            delete [] data;
+        }
         std::cout << "Mat destructed" <<std::endl;
     }
     inline void setData(const Datatype *data,const Size &size);
-    inline void setSize(const Size &size);
+     void setSize(const Size &size);
     
-    inline Datatype getDataAt(const int x,const int y, const int z) const;
+     Datatype getDataAt(const int x,const int y, const int z) const;
     inline Datatype getDataAt(const int x,const int y) const;
     inline Datatype getDataAt(const int ref[], const int refCount) const;
     
     inline void setDataAt(const int x,const int y, const int z,const Datatype &newValue ) ;
-    inline void setDataAt(const int x,const int y,const Datatype &newValue) ;
+     void setDataAt(const int x,const int y,const Datatype &newValue) ;
     inline void setDataAt(const int ref[], const int refCount,const Datatype &newValue) ;
     
     

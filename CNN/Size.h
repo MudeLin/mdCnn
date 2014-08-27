@@ -17,7 +17,8 @@ public:
     int *sizes;
     Size(){
         this->dim = 0;
-        this->sizes = new int[1];
+        
+        this->sizes = new int[dim];
     }
     Size(const int dim){
         this->dim = dim;
@@ -38,9 +39,11 @@ public:
     }
     Size& operator =(const Size &rhs){
         if (this != &rhs) {
+            if(this->dim > 0){
+                delete [] this->sizes;
+            }
             this->dim = rhs.dim;
-            delete [] this->sizes;
-            this->sizes = new int[dim ];
+            this->sizes = new int[dim];
             memcpy(this->sizes, rhs.sizes, (this->dim) * sizeof(int));
         }
         return *this;
@@ -55,7 +58,8 @@ public:
     }
     ~Size(){
         std::cout << "Size destructed! " << std::endl;
-        delete [] sizes;
+        if(this->dim > 0)
+            delete [] sizes;
     }
 };
 
