@@ -11,23 +11,33 @@
 #include "Mat.h"
 #include "Layer.h"
 #include "NetoWorkdelegate.h"
-
-void initializedNetwork();
+#include "Util.h"
+void initializedNetwork(NetWorkDelegate *delegate);
 
 int main(int argc, const char * argv[])
 {
 
     // insert code here...
     std::cout << "Hello, World!\n";
-    initializedNetwork();
+    
+    Util util = Util();
+    Mat *inputDataMat = new Mat();
+    int inputdim[] = {42010,29,28};
+    inputDataMat->setSize(Size(3,inputdim));
+    util.loadData("/Users/imac06/Downloads/train.csv", inputDataMat);
+    util.saveData(inputDataMat, "/Users/imac06/Downloads/testWrite.csv");
+    /*NetWorkDelegate *delegate = new NetWorkDelegate();
+    initializedNetwork(delegate);
+    
     testSize();
     testMat();
     testLayer();
+    */
     return 0;
 }
 
-void initializedNetwork(){
-    NetWorkDelegate *delegate = new NetWorkDelegate();
+void initializedNetwork(NetWorkDelegate *delegate){
+    
     Layer *layer = new Layer();
     
     //add input layer

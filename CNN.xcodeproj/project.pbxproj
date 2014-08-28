@@ -15,6 +15,7 @@
 		07D42D6A1991B83100EBB101 /* Kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07D42D681991B83100EBB101 /* Kernel.cpp */; };
 		07D42D701991C53600EBB101 /* NetoWorkdelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07D42D6E1991C53600EBB101 /* NetoWorkdelegate.cpp */; };
 		180AEEA319A439F000F5DF7B /* NetWork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 180AEEA119A439F000F5DF7B /* NetWork.cpp */; };
+		1F9AE01619AF146500B2988E /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AE01419AF146500B2988E /* Util.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +47,8 @@
 		07D42D6F1991C53600EBB101 /* NetoWorkdelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetoWorkdelegate.h; sourceTree = "<group>"; };
 		180AEEA119A439F000F5DF7B /* NetWork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetWork.cpp; sourceTree = "<group>"; };
 		180AEEA219A439F000F5DF7B /* NetWork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWork.h; sourceTree = "<group>"; };
+		1F9AE01419AF146500B2988E /* Util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Util.cpp; sourceTree = "<group>"; };
+		1F9AE01519AF146500B2988E /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,8 @@
 				07D42D6F1991C53600EBB101 /* NetoWorkdelegate.h */,
 				180AEEA119A439F000F5DF7B /* NetWork.cpp */,
 				180AEEA219A439F000F5DF7B /* NetWork.h */,
+				1F9AE01419AF146500B2988E /* Util.cpp */,
+				1F9AE01519AF146500B2988E /* Util.h */,
 			);
 			path = CNN;
 			sourceTree = "<group>";
@@ -154,6 +159,7 @@
 				07D42D701991C53600EBB101 /* NetoWorkdelegate.cpp in Sources */,
 				07CD0D89198BB759009DFBA8 /* Layer.cpp in Sources */,
 				07D42D6A1991B83100EBB101 /* Kernel.cpp in Sources */,
+				1F9AE01619AF146500B2988E /* Util.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,7 +21,7 @@ private:
 public:
     Size size;
     Datatype *data;
-    int totalCount;
+    unsigned int totalCount;
     Mat(){
         size = Size();
         totalCount = 0;
@@ -45,8 +45,8 @@ public:
     inline Datatype getDataAt(const int x,const int y) const;
     inline Datatype getDataAt(const int ref[], const int refCount) const;
     
-    inline void setDataAt(const int x,const int y, const int z,const Datatype &newValue ) ;
-     void setDataAt(const int x,const int y,const Datatype &newValue) ;
+    void setDataAt(const int x,const int y, const int z,const Datatype &newValue ) ;
+    void setDataAt(const int x,const int y,const Datatype &newValue) ;
     inline void setDataAt(const int ref[], const int refCount,const Datatype &newValue) ;
     
     

@@ -40,11 +40,16 @@ void Mat::setData(const Datatype *data, const Size &size) {
 }
 void Mat::initSize(const Size &size){
     this->size = size;
-    int totalCount = 0;
+    unsigned int totalCount = 0;
     for (int i = 0; i < this->size.dim;  i ++ ) {
         int dimSize = *((this->size).sizes + i);
         assert(dimSize > 0);
-        totalCount += dimSize;
+        if (i == 0) {
+            totalCount = dimSize;
+        }else{
+            totalCount *= dimSize;
+        }
+        
     }
     //feed data
     this->totalCount = totalCount;
@@ -57,11 +62,15 @@ void Mat::setSize(const Size &size){
         delete [] this->data;
     }
     this->size = size;
-    int totalCount = 0;
+    unsigned int totalCount = 0;
     for (int i = 0; i < this->size.dim;  i ++ ) {
         int dimSize = *((this->size).sizes + i);
         assert(dimSize >= 0);
-        totalCount += dimSize;
+        if (i == 0) {
+            totalCount = dimSize;
+        }else{
+            totalCount *= dimSize;
+        }
     }
     this->totalCount = totalCount;
     
@@ -77,9 +86,18 @@ Datatype Mat::getDataAt(const int x, const int y, const int z) const{
     
     return *(this->data + index);
 }
+
 void Mat::setDataAt(const int x, const int y, const Datatype &newValue){
     assert(this->size.dim == 2);
-    int index = x * (this->size.getSizeAtdim(1)) + y;
+    unsigned int index = x * (this->size.getSizeAtdim(1)) + y;
+    assert(index < totalCount);
+    
+    *(this->data + index) = newValue;
+    
+}
+void Mat::setDataAt(const int x, const int y,const int z, const Datatype &newValue){
+    assert(this->size.dim == 3);
+    unsigned int index = x * (this->size.getSizeAtdim(1))*(this->size.getSizeAtdim(2)) + y*(this->size.getSizeAtdim(2)) + z ;
     assert(index < totalCount);
     
     *(this->data + index) = newValue;
