@@ -12,7 +12,11 @@ void NetWorkDelegate::checkGradient(){
     
 }
 
-void NetWorkDelegate::forward(){
+
+void NetWorkDelegate::forward(const Mat *inputmat,const int index){
+    //initialize the input layer's data
+    Mat *feat = inputmat->getMatAt(index);
+    (this->layers )->setFeatureMap(feat, 1);
     
     for (int i = 1; i < layerCount; i++) {
         (this->layers + i)->calCulateFeatureMap(this->layers + i -1);
@@ -38,10 +42,19 @@ void NetWorkDelegate::backward(){
 }
 
 void NetWorkDelegate::train(){
-    for (int i = 0; i < this-> rounds; i ++) {
-        for (int j = 0; j < this->batchSize; j++) {
-            forward();
-            backward();
+    Util util = Util();
+    Mat *inputDataMat = new Mat();
+    int inputdim[] = {42010,29,28};
+    inputDataMat->setSize(Size(3,inputdim));
+    util.loadData("/Users/imac06/Downloads/train.csv", inputDataMat);
+    util.saveData(inputDataMat, "/Users/imac06/Downloads/testWrite.csv");
+    for (int index = 0;  index < this->totalTrainInstance; index += this->batchSize) {
+        
+        for (int i = 0; i < this-> rounds; i ++) {
+            for (int j = 0; j < this->batchSize; j++) {
+                forward(inputDataMat,index + j);
+                //backward();
+            }
         }
     }
 }

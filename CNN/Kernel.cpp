@@ -14,15 +14,15 @@ Kernel::Kernel(){
     this->connectivity = new int[1];
 }
 
-Kernel::Kernel(const  int* connectivity,const int conn_Num){
-    this->conn_Num = conn_Num;
-    this->connectivity = new int[conn_Num];
-    memccpy(this->connectivity, connectivity, conn_Num, sizeof(int) * (this->conn_Num));
+Kernel::Kernel(const  int* _connectivity,const int _conn_Num){
+    this->conn_Num = _conn_Num;
+    this->connectivity = new int[_conn_Num];
+    memccpy(this->connectivity, _connectivity, conn_Num, sizeof(int) * (this->conn_Num));
 }
-Kernel::Kernel(const  int* connectivity,const int conn_Num,const Size &size){
-    this->conn_Num = conn_Num;
-    this->connectivity = new int[conn_Num];
-    memccpy(this->connectivity, connectivity, conn_Num, sizeof(int) * (this->conn_Num));
+Kernel::Kernel(const  int* _connectivity,const int _conn_Num,const Size &size){
+    this->conn_Num = _conn_Num;
+    this->connectivity = new int[_conn_Num];
+    memccpy(this->connectivity, _connectivity, conn_Num, sizeof(int) * (this->conn_Num));
     this->size = size;
     this->randomInitialized();
 }
@@ -85,11 +85,14 @@ Datatype Kernel::activationFunc(const Datatype &sum) const {
     //Sigmoid funciton
     return Datatype(1.0) / (Datatype(1.0) + pow(m_e, -sum));
 }
-void Kernel::setConnectivity(const int *connectivity, const int conn_Num){
-    delete [] this->connectivity;
-    this->conn_Num = conn_Num;
+void Kernel::setConnectivity(const int *_connectivity, const int _conn_Num){
+    if (this->conn_Num > 0) {
+        delete [] this->connectivity;
+    }
+    this->conn_Num = _conn_Num;
     this->connectivity = new int[this->conn_Num];
-    memcpy(this->connectivity, connectivity, sizeof(int)*(this->conn_Num));
+    
+    memcpy(this->connectivity, _connectivity, sizeof(int)*(this->conn_Num));
             
 }
 void Kernel::testKernel(){

@@ -28,8 +28,8 @@ public:
         data = new Datatype[totalCount];
     }
     
-    Mat(const Size &size);
-    Mat(const Size &size,const Datatype *data);
+    Mat(const Size &_size);
+    Mat(const Size &_size,const Datatype *_data);
     Mat(const Mat &mat);
     Mat& operator = (const Mat &mat);
     ~Mat(){
@@ -38,13 +38,14 @@ public:
         }
         std::cout << "Mat destructed" <<std::endl;
     }
-    inline void setData(const Datatype *data,const Size &size);
-     void setSize(const Size &size);
+    inline void setData(const Datatype *_data,const Size &_size);
+     void setSize(const Size &_size);
     
      Datatype getDataAt(const int x,const int y, const int z) const;
     inline Datatype getDataAt(const int x,const int y) const;
     inline Datatype getDataAt(const int ref[], const int refCount) const;
     
+    Mat *getMatAt(const int index) const;
     void setDataAt(const int x,const int y, const int z,const Datatype &newValue ) ;
     void setDataAt(const int x,const int y,const Datatype &newValue) ;
     inline void setDataAt(const int ref[], const int refCount,const Datatype &newValue) ;

@@ -17,20 +17,19 @@ public:
     int *sizes;
     Size(){
         this->dim = 0;
-        
         this->sizes = new int[dim];
     }
-    Size(const int dim){
-        this->dim = dim;
+    Size(const int _dim){
+        this->dim = _dim;
         this->sizes = new int[this->dim];
         memset(this->sizes, 0, sizeof(int) * (this->dim));
     }
-    Size(const int dim, const int *sizes){
+    Size(const int _dim, const int *_sizes){
         assert(sizes != NULL);
-        this->dim = dim;
-        this->sizes = new int[dim];
+        this->dim = _dim;
+        this->sizes = new int[_dim];
         assert(this->sizes != NULL);
-        memcpy(this->sizes, sizes, (this->dim) * sizeof(int));
+        memcpy(this->sizes, _sizes, (this->dim) * sizeof(int));
     }
     Size(const Size &rhs){
         this->dim = rhs.dim;
@@ -48,12 +47,12 @@ public:
         }
         return *this;
     }
-    void setSizeAtdim(int dim, int newSize){
-        assert(dim >=0 && dim < this -> dim);
-        *(this->sizes + dim) = newSize;
+    void setSizeAtdim(int _dim, int newSize){
+        assert(_dim >=0 && _dim < this -> dim);
+        *(this->sizes + _dim) = newSize;
     }
-    inline int getSizeAtdim(int dim) const {
-        assert(dim >=0 && dim < this -> dim);
+    inline int getSizeAtdim(int target_dim) const {
+        assert(target_dim >=0 && target_dim < this -> dim);
         return *(this->sizes + dim);
     }
     ~Size(){

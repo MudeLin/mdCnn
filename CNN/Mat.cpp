@@ -9,9 +9,9 @@
 #include "Mat.h"
 #include <stdlib.h>
 
-Mat::Mat(const Size &size){
+Mat::Mat(const Size &_size){
     this->size = Size();
-    this->initSize(size);
+    this->initSize(_size);
 }
 
 Mat::Mat(const Mat &mat){
@@ -23,23 +23,25 @@ Mat::Mat(const Mat &mat){
     }
 }
 
-Mat::Mat(const Size &size,const Datatype *data){
+Mat::Mat(const Size &_size,const Datatype *_data){
     this->size = Size();
-    this->initSize(size);
-    this->setData(data, size);
+    this->initSize(_size);
+    this->setData(_data, _size);
 }
-void Mat::setData(const Datatype *data, const Size &size) {
-    assert(data != NULL);
-    assert(this->size == size);
+void Mat::setData(const Datatype *_data, const Size &_size) {
+    assert(_data != NULL);
+    assert(this->size == _size);
     if (this->totalCount == 0) {
         this->data = new Datatype[this->totalCount];
+        assert(this->data != NULL);
     }
     
     assert(data != NULL);
-    memcpy(this->data, data, totalCount * sizeof(Datatype));
+    memcpy(this->data, _data, totalCount * sizeof(Datatype));
+    
 }
-void Mat::initSize(const Size &size){
-    this->size = size;
+void Mat::initSize(const Size &_size){
+    this->size = _size;
     unsigned int totalCount = 0;
     for (int i = 0; i < this->size.dim;  i ++ ) {
         int dimSize = *((this->size).sizes + i);
@@ -54,14 +56,15 @@ void Mat::initSize(const Size &size){
     //feed data
     this->totalCount = totalCount;
     this->data = new Datatype[totalCount];
+    assert(this->data != NULL);
     memset(this->data, 0, totalCount * sizeof(Datatype));
 }
 
-void Mat::setSize(const Size &size){
+void Mat::setSize(const Size &_size){
     if (this->totalCount > 0) {
         delete [] this->data;
     }
-    this->size = size;
+    this->size = _size;
     unsigned int totalCount = 0;
     for (int i = 0; i < this->size.dim;  i ++ ) {
         int dimSize = *((this->size).sizes + i);
@@ -75,7 +78,7 @@ void Mat::setSize(const Size &size){
     this->totalCount = totalCount;
     
     this->data = new Datatype[totalCount];
-    
+    assert(this->data != NULL);
     memset(data, 0, totalCount * sizeof(Datatype));
 }
 
@@ -85,6 +88,14 @@ Datatype Mat::getDataAt(const int x, const int y, const int z) const{
     assert(index < totalCount);
     
     return *(this->data + index);
+}
+
+Mat* Mat::getMatAt(const int index) const {
+    int nsize[] = {this->size.getSizeAtdim(1) - 1 ,this->getSize(2)};
+    
+    Mat *row = new Mat(Size(2, nsize));
+    
+    return row;
 }
 
 void Mat::setDataAt(const int x, const int y, const Datatype &newValue){

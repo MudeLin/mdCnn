@@ -20,15 +20,12 @@ int main(int argc, const char * argv[])
     // insert code here...
     std::cout << "Hello, World!\n";
     
-    Util util = Util();
-    Mat *inputDataMat = new Mat();
-    int inputdim[] = {42010,29,28};
-    inputDataMat->setSize(Size(3,inputdim));
-    util.loadData("/Users/imac06/Downloads/train.csv", inputDataMat);
-    util.saveData(inputDataMat, "/Users/imac06/Downloads/testWrite.csv");
-    /*NetWorkDelegate *delegate = new NetWorkDelegate();
-    initializedNetwork(delegate);
     
+    
+    NetWorkDelegate *delegate = new NetWorkDelegate();
+    initializedNetwork(delegate);
+    delegate->train();
+    /*
     testSize();
     testMat();
     testLayer();
@@ -36,10 +33,14 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
+
 void initializedNetwork(NetWorkDelegate *delegate){
     
     Layer *layer = new Layer();
+    Kernel *kernels = new Kernel[6];
+    int sizes[] = {5,5};
     
+    layer->feat_mapNum  = 1;
     //add input layer
     layer->setType(InputLayer);
     delegate->appendLayer(layer);
@@ -48,9 +49,8 @@ void initializedNetwork(NetWorkDelegate *delegate){
     //add first conv layer
     
     int connectivities[] = {0};
-    int sizes[] = {5,5};
     
-    Kernel *kernels = new Kernel[6];
+    
     for(int i = 0;i < 6; i++){
         (kernels + i)->setConnectivity(connectivities, 1);
         (kernels + i)->setSize(Size(2,sizes));
@@ -121,8 +121,9 @@ void initializedNetwork(NetWorkDelegate *delegate){
         (kernels + i)->setSize(Size(2,sizes));
     }
     layer = new Layer(16,kernels);
-    delete [] kernels;
+    
     delegate->appendLayer(layer);
+    delete [] kernels;
     delete layer;
     
     //add pooling layer

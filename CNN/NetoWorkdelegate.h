@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Layer.h"
 #include "NetWork.h"
+#include "Util.h"
 
 class NetWorkDelegate: public NetWork {
 private:
@@ -19,6 +20,8 @@ private:
     float numda = 0.0001;
     int batchSize = 1;
     int rounds = 10;
+    int totalTrainInstance = 42000;
+    int totalTestInstance  = 10000;
     
 public:
     NetWorkDelegate(){
@@ -27,7 +30,7 @@ public:
     NetWorkDelegate(const int layerCount, const Layer *layers):NetWork(layerCount,layers){
     }
     
-    void forward();
+    void forward(const Mat *inputmat,const int index);
     void backward();
     
     void train();

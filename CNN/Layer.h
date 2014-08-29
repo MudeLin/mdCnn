@@ -50,7 +50,7 @@ public:
     
     void updateKernels(const Layer *lhs, const Mat* rdeltaMap, const float alpha);
     
-    void setFeatureMap(const Mat *feature_maps,const int feature_mapNum);
+    void setFeatureMap(const Mat *feature_ms,const int _feature_mapNum);
     
     inline void setType(LayerType type){
         this->type = type;
