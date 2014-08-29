@@ -31,17 +31,13 @@ Mat::Mat(const Size &_size,const Datatype *_data){
 void Mat::setData(const Datatype *_data, const Size &_size) {
     assert(_data != NULL);
     assert(this->size == _size);
-    if (this->totalCount == 0) {
-        this->data = new Datatype[this->totalCount];
-        assert(this->data != NULL);
-    }
-    
     assert(data != NULL);
     memcpy(this->data, _data, totalCount * sizeof(Datatype));
     
 }
 void Mat::initSize(const Size &_size){
-    this->size = _size;
+    
+    this->size = _size ;
     unsigned int totalCount = 0;
     for (int i = 0; i < this->size.dim;  i ++ ) {
         int dimSize = *((this->size).sizes + i);
@@ -75,6 +71,7 @@ void Mat::setSize(const Size &_size){
             totalCount *= dimSize;
         }
     }
+    
     this->totalCount = totalCount;
     
     this->data = new Datatype[totalCount];
